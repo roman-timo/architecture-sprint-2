@@ -32,7 +32,7 @@ docker exec -it configSrv mongosh --port 27017
 
 Инициализация шардов
 ```shell
-docker exec -it shard1 mongosh --port 27018
+docker exec -it shard1-1 mongosh --port 27018
 
 > rs.initiate(
     {
@@ -46,7 +46,7 @@ docker exec -it shard1 mongosh --port 27018
 > exit();
 
 
-docker exec -it shard2 mongosh --port 27019
+docker exec -it shard2-1 mongosh --port 27019
 
 > rs.initiate(
     {
@@ -87,8 +87,8 @@ rs.initiate({_id: "shard2", members: [
 ```shell
 docker exec -it mongos_router mongosh --port 27020
 
-> sh.addShard( "shard1/shard1:27018");
-> sh.addShard( "shard2/shard2:27019");
+> sh.addShard( "shard1/shard1-1:27018");
+> sh.addShard( "shard2/shard2-1:27019");
 
 > sh.enableSharding("somedb");
 > sh.shardCollection("somedb.helloDoc", { "name" : "hashed" } )
